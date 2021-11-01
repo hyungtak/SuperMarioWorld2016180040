@@ -2,6 +2,9 @@ from pico2d import *
 import random
 import game_framework
 
+player = None
+grass = None
+font = None
 
 class Mario:
     def __init__(self):
@@ -26,27 +29,46 @@ class Grass():
     pass
 
 def enter():
-    global boy, grass
-    boy = Mario()
+    global player, grass
+    player = Mario()
     grass = Grass()
 
+def update():
+    global player
+    player.update()
+
+def draw():
+    clear_canvas()
+    #grass.draw()
+    player.draw()
+    update_canvas()
+
+
 def handle_events():
-    global running
+    global running, player
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
+
+        elif event.type == SDL_KEYDOWN:
+
+            if event.key == SDLK_ESCAPE:
+                running = False
+            elif
+        elif event.type == SDL_KEYUP:
+            pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_UP:
             pass
         elif event.type == SDL_KEYDOWN and event.key == SDLK_LEFT:
-            if(boy.speedX < 1):
-                boy.speedX += 1
+            if(player.speedX < 1):
+                player.speedX += 1
 
         elif event.type == SDL_KEYUP and event.key == SDLK_LEFT:
-            if(boy.speedX >= 1):
-                boy.speedX -= 1
+            if(player.speedX >= 1):
+                player.speedX -= 1
 
         elif event.type == SDL_KEYDOWN and event.key == SDLK_UP:
             pass
